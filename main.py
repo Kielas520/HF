@@ -19,7 +19,7 @@ motor_x = Stepper(26,16,steps_per_rev=200*16,speed_sps=2000, timer_id=2)
 while True:
     data_esp = now.read_espnow()
     data_esp = now.process_data(data_esp)
-    data = read_uart()
+
     if data_esp:
         
         if data_esp[6] == 64:
@@ -39,6 +39,7 @@ while True:
                 motor_x.target_deg_relative(-ang_solve(data_esp[1]) * 0.05)
         
         elif mode == 1:
+            data = read_uart()
             if data:
                 print(data)
                 if data[0] == 1:
